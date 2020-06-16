@@ -1,11 +1,12 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react'
-import { Link , useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FiArrowLeft } from 'react-icons/fi'
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 import { LeafletMouseEvent } from 'leaflet'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
+import DropZone from '../../components/Dropzone'
 import api from '../../services/api'
 import logo from '../../assets/logo.svg'
 import './styles.css'
@@ -46,8 +47,9 @@ const CreatePoint: React.FC = () => {
     0
   ])
   const [selectedItems, setSelectedItems] = useState<number[]>([])
+  const [selectedImage, setSelectedImage] = useState<File>()
 
-  const history = useHistory();
+  const history = useHistory()
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(postition => {
@@ -119,7 +121,7 @@ const CreatePoint: React.FC = () => {
     }
   }
 
- async function handleSubmit (e: FormEvent) {
+  async function handleSubmit (e: FormEvent) {
     e.preventDefault()
 
     const { name, email, whatsapp } = formData
@@ -138,11 +140,11 @@ const CreatePoint: React.FC = () => {
       longitude,
       items
     }
-   await api.post('points', data)
-   
-   toast.success('Ponto de coleta salvo com sucesso!')
+    await api.post('points', data)
 
-   history.push('/')
+    toast.success('Ponto de coleta salvo com sucesso!')
+
+    history.push('/')
   }
 
   return (
@@ -159,6 +161,9 @@ const CreatePoint: React.FC = () => {
           Cadastro do
           <br /> ponto de coleta
         </h1>
+        
+        <DropZone onFileSelectedUpload={setSelectedImage}/>
+
         <fieldset>
           <legend>
             <h2>Dados</h2>
