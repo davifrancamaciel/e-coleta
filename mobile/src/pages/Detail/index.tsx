@@ -39,6 +39,7 @@ const Detail: React.FC = () => {
 
   useEffect(() => {
     api.get(`points/${routeParams.point_id}`).then(response => {
+      console.log(response.data)
       setData(response.data)
     })
   }, [])

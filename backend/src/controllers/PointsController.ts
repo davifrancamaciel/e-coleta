@@ -30,7 +30,7 @@ class PointsController {
 
   async show (request: Request, res: Response) {
     const { id } = request.params
-    const point = await knex('points')
+    let point = await knex('points')
       .where('id', id)
       .first()
 
@@ -47,7 +47,8 @@ class PointsController {
       ...point,
       image_url: `${BASE_URL}/uploads/${point.image}`
     }
-    return res.json({ serializedPoint, items })
+    point = serializedPoint
+    return res.json({ point, items })
   }
 
   async create (request: Request, res: Response) {

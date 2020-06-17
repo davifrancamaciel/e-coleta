@@ -129,17 +129,19 @@ const CreatePoint: React.FC = () => {
     const city = selectedCity
     const [latitude, longitude] = selectedPosition
     const items = selectedItems
-
-    const data = {
-      name,
-      email,
-      whatsapp,
-      city,
-      uf,
-      latitude,
-      longitude,
-      items
+    const data = new FormData()
+    data.append('name', name)
+    data.append('email', email)
+    data.append('whatsapp', whatsapp)
+    data.append('city', city)
+    data.append('uf', uf)
+    data.append('latitude', String(latitude))
+    data.append('longitude', String(longitude))
+    data.append('items', items.join(','))
+    if (selectedImage) {
+      data.append('image', selectedImage)
     }
+
     await api.post('points', data)
 
     toast.success('Ponto de coleta salvo com sucesso!')
@@ -161,8 +163,8 @@ const CreatePoint: React.FC = () => {
           Cadastro do
           <br /> ponto de coleta
         </h1>
-        
-        <DropZone onFileSelectedUpload={setSelectedImage}/>
+
+        <DropZone onFileSelectedUpload={setSelectedImage} />
 
         <fieldset>
           <legend>
