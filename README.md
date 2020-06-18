@@ -1,5 +1,5 @@
 <h1 align=center>
-  <img src="web/src/assets/banner.PNG">
+  <img src="web/src/assets/banner.png">
 </h1>
 
 <div align="center">
