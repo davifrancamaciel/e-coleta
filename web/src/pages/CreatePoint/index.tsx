@@ -56,6 +56,7 @@ const CreatePoint: React.FC = () => {
       console.log(postition)
       const { latitude, longitude } = postition.coords
       setInitialPosition([latitude, longitude])
+      setSelectedPosition([latitude, longitude])
     })
   }, [])
 
@@ -101,6 +102,7 @@ const CreatePoint: React.FC = () => {
 
   function handleMapClick (e: LeafletMouseEvent) {
     setSelectedPosition([e.latlng.lat, e.latlng.lng])
+    console.log(e.latlng.lat, e.latlng.lng)
   }
 
   function handleChangeInput (e: ChangeEvent<HTMLInputElement>) {
